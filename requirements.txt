@@ -1,2 +1,6 @@
 pandas
 openpyxl
+ipykernel
+matplotlib
+statsmodels
+path
