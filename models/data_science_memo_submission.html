@@ -8054,6 +8054,15 @@ pre, code, .highlight pre, .jp-CodeCell .cm-content, .jp-Cell .output pre {
   word-break: break-word !important;
   overflow-wrap: anywhere !important;
 }
+
+.MathJax_Display, .jp-RenderedHTMLCommon .MathJax_Display {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.MathJax, .jp-RenderedHTMLCommon .MathJax {
+  max-width: 100%;
+}
 </style>
 </div>
 </div>
@@ -8090,7 +8099,7 @@ pre, code, .highlight pre, .jp-CodeCell .cm-content, .jp-Cell .output pre {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [16]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -8239,7 +8248,7 @@ pre, code, .highlight pre, .jp-CodeCell .cm-content, .jp-Cell .output pre {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [17]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">aiie_lookup</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">aiie</span><span class="p">[</span><span class="s2">"NAICS"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">aiie</span><span class="p">[</span><span class="s2">"AIIE"</span><span class="p">]))</span>
@@ -8321,7 +8330,7 @@ pre, code, .highlight pre, .jp-CodeCell .cm-content, .jp-Cell .output pre {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">aioe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">"../data/AIOE_DataAppendix.xlsx"</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s2">"Appendix A"</span><span class="p">)</span>
@@ -8372,7 +8381,7 @@ pre, code, .highlight pre, .jp-CodeCell .cm-content, .jp-Cell .output pre {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [19]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">occ_changes</span> <span class="o">=</span> <span class="p">(</span>
@@ -8459,7 +8468,7 @@ pre, code, .highlight pre, .jp-CodeCell .cm-content, .jp-Cell .output pre {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [20]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
@@ -8515,7 +8524,7 @@ pre, code, .highlight pre, .jp-CodeCell .cm-content, .jp-Cell .output pre {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [21]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -8557,7 +8566,7 @@ pre, code, .highlight pre, .jp-CodeCell .cm-content, .jp-Cell .output pre {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [22]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">notebook_helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -8596,21 +8605,41 @@ pre, code, .highlight pre, .jp-CodeCell .cm-content, .jp-Cell .output pre {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h4 id="Difference-in-Differences-Specifications">Difference-in-Differences Specifications<a class="anchor-link" href="#Difference-in-Differences-Specifications">¶</a></h4><p>The baseline unemployment difference-in-differences model is:</p>
 <p>$$
-unemployed_{it} = \beta_0 + \beta_1 AIIE_j + \beta_2 post^{unemp}_t + \beta_3 \left(AIIE_j \times post^{unemp}_t\right) + \beta_4 AGE_i + \sum_e \delta_e 1\{EDUC_i = e\} + \varepsilon_{it}
+\begin{aligned}
+unemployed_{it} &amp;= \beta_0 + \beta_1 AIIE_j + \beta_2 post^{unemp}_t \\
+&amp;\quad + \beta_3 \left(AIIE_j \times post^{unemp}_t\right) + \beta_4 AGE_i \\
+&amp;\quad + \sum_e \delta_e 1\{EDUC_i = e\} + \varepsilon_{it}
+\end{aligned}
 $$</p>
 <p>The unemployment heterogeneity model adds a triple interaction:</p>
 <p>$$
-unemployed_{it} = \alpha_0 + \alpha_1 AIIE_j + \alpha_2 post^{unemp}_t + \alpha_3 early\_career_i + \alpha_4 \left(AIIE_j \times post^{unemp}_t\right)
-+ \alpha_5 \left(AIIE_j \times early\_career_i\right) + \alpha_6 \left(post^{unemp}_t \times early\_career_i\right) + \alpha_7 \left(AIIE_j \times post^{unemp}_t \times early\_career_i\right) + \alpha_8 AGE_i + \sum_e \rho_e 1\{EDUC_i = e\} + u_{it}
+\begin{aligned}
+unemployed_{it} &amp;= \alpha_0 + \alpha_1 AIIE_j + \alpha_2 post^{unemp}_t + \alpha_3 early\_career_i \\
+&amp;\quad + \alpha_4 \left(AIIE_j \times post^{unemp}_t\right) \\
+&amp;\quad + \alpha_5 \left(AIIE_j \times early\_career_i\right) \\
+&amp;\quad + \alpha_6 \left(post^{unemp}_t \times early\_career_i\right) \\
+&amp;\quad + \alpha_7 \left(AIIE_j \times post^{unemp}_t \times early\_career_i\right) \\
+&amp;\quad + \alpha_8 AGE_i + \sum_e \rho_e 1\{EDUC_i = e\} + u_{it}
+\end{aligned}
 $$</p>
 <p>The baseline wage difference-in-differences model is:</p>
 <p>$$
-\log(wage_{it}) = \gamma_0 + \gamma_1 AIIE_j + \gamma_2 post^{wage}_t + \gamma_3 \left(AIIE_j \times post^{wage}_t\right) + \gamma_4 AGE_i + \sum_e \kappa_e 1\{EDUC_i = e\} + \nu_{it}
+\begin{aligned}
+\log(wage_{it}) &amp;= \gamma_0 + \gamma_1 AIIE_j + \gamma_2 post^{wage}_t \\
+&amp;\quad + \gamma_3 \left(AIIE_j \times post^{wage}_t\right) + \gamma_4 AGE_i \\
+&amp;\quad + \sum_e \kappa_e 1\{EDUC_i = e\} + \nu_{it}
+\end{aligned}
 $$</p>
 <p>The wage heterogeneity model parallels the unemployment triple-interaction setup:</p>
 <p>$$
-\log(wage_{it}) = \eta_0 + \eta_1 AIIE_j + \eta_2 post^{wage}_t + \eta_3 early\_career_i + \eta_4 \left(AIIE_j \times post^{wage}_t\right)
-+ \eta_5 \left(AIIE_j \times early\_career_i\right) + \eta_6 \left(post^{wage}_t \times early\_career_i\right) + \eta_7 \left(AIIE_j \times post^{wage}_t \times early\_career_i\right) + \eta_8 AGE_i + \sum_e \phi_e 1\{EDUC_i = e\} + \omega_{it}
+\begin{aligned}
+\log(wage_{it}) &amp;= \eta_0 + \eta_1 AIIE_j + \eta_2 post^{wage}_t + \eta_3 early\_career_i \\
+&amp;\quad + \eta_4 \left(AIIE_j \times post^{wage}_t\right) \\
+&amp;\quad + \eta_5 \left(AIIE_j \times early\_career_i\right) \\
+&amp;\quad + \eta_6 \left(post^{wage}_t \times early\_career_i\right) \\
+&amp;\quad + \eta_7 \left(AIIE_j \times post^{wage}_t \times early\_career_i\right) \\
+&amp;\quad + \eta_8 AGE_i + \sum_e \phi_e 1\{EDUC_i = e\} + \omega_{it}
+\end{aligned}
 $$</p>
 <p>Variable definitions:</p>
 <ul>
@@ -8632,7 +8661,7 @@ $$</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [23]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">coverage_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
@@ -8689,6 +8718,29 @@ $$</p>
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f1dd3656">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Now, we will dive into a check for parallel trends.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c15b06e8">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="Why-Check-Parallel-Trends?">Why Check Parallel Trends?<a class="anchor-link" href="#Why-Check-Parallel-Trends?">¶</a></h4><p>The descriptive figures are useful for showing the broad pattern in the data, but they are not enough on their own to justify a difference-in-differences interpretation. The key identifying assumption behind the DiD design is that, absent the post-2022 expansion of generative AI, outcomes in higher- and lower-exposure industries would have continued to move along similar underlying paths.</p>
+<p>This is why we now dive into an event-study version of the model. The event-study check asks whether the relationship between <code>AIIE</code> and the outcome was already shifting before the post period began. If those pre-period differences are small, that makes the DiD setup more credible. If they are large or systematic, then the post-period DiD estimates are harder to interpret causally because some of the gap may reflect pre-existing divergence rather than a post-2022 change.</p>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ec7206c6">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -8697,7 +8749,11 @@ $$</p>
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h4 id="Parallel-Trends-and-Event-Study-Diagnostic">Parallel Trends and Event-Study Diagnostic<a class="anchor-link" href="#Parallel-Trends-and-Event-Study-Diagnostic">¶</a></h4><p>Parallel trends are evaluated with an event-study specification that replaces the single post-period interaction with year-specific interactions between <code>AIIE</code> and survey year:</p>
 <p>$$
-Y_{it} = \theta_0 + \sum_{\tau \neq 2022} \theta_{\tau} \left(AIIE_j \times 1\{YEAR_t = \tau\}\right) + \gamma_j + \sum_{\tau \neq 2022} \lambda_{\tau} 1\{YEAR_t = \tau\} + \sum_k \psi_k X_{kit} + \varepsilon_{it}
+\begin{aligned}
+Y_{it} &amp;= \theta_0 + \sum_{\tau \neq 2022} \theta_{\tau} \left(AIIE_j \times 1\{YEAR_t = \tau\}\right) \\
+&amp;\quad + \gamma_j + \sum_{\tau \neq 2022} \lambda_{\tau} 1\{YEAR_t = \tau\} \\
+&amp;\quad + \sum_k \psi_k X_{kit} + \varepsilon_{it}
+\end{aligned}
 $$</p>
 <p>where $Y_{it}$ is either unemployment or log wage income, and $X_{kit}$ includes age and education controls. This is not a staggered-adoption design. The omitted year is 2022, so each coefficient shows how the relationship between <code>AIIE</code> and the outcome differs relative to 2022.</p>
 <p>Interpretation of the diagnostic:</p>
@@ -8715,7 +8771,7 @@ $$</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [24]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">notebook_helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -8730,12 +8786,12 @@ $$</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=3d915f81">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=3ab1d23d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [25]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">unemp_event</span> <span class="o">=</span> <span class="n">fit_event_study</span><span class="p">(</span><span class="n">unemp_sample</span><span class="p">,</span> <span class="s2">"unemployed"</span><span class="p">,</span> <span class="n">reference_year</span><span class="o">=</span><span class="mi">2022</span><span class="p">)</span>
@@ -9036,12 +9092,12 @@ $$</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c1cf4edd">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=5ddb5a2d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [26]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">m_unemp_base</span> <span class="o">=</span> <span class="n">run_wls</span><span class="p">(</span>
@@ -9077,7 +9133,7 @@ $$</p>
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[11]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[26]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <div>
 <style scoped="">
@@ -9153,7 +9209,7 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a5a7d961">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=cef016a0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9163,12 +9219,12 @@ $$</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=02710754">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d4931413">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [27]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">unemp_no20</span> <span class="o">=</span> <span class="n">unemp_sample</span><span class="p">[</span><span class="n">unemp_sample</span><span class="p">[</span><span class="s2">"YEAR"</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">2020</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -9371,12 +9427,12 @@ $$</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=27a58d19">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=6556b451">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [28]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">unemp_sample</span><span class="p">[</span><span class="s2">"age_group"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span>
@@ -9505,7 +9561,7 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5a018bac">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9f6a0e35">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9516,7 +9572,7 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8efed7c7">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=21e8399a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9526,12 +9582,12 @@ $$</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=a0764796">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8e6d1260">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [14]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [30]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
@@ -9574,6 +9630,20 @@ $$</p>
 <pre>Running: /Users/aeshagandhi/Downloads/MIDS-Sp26/UDS/UDS-Project/.venv/bin/python -m jupyter nbconvert --to html --output data_science_memo_submission --log-level=ERROR data_science_memo.ipynb
 Created data_science_memo_submission.html
 </pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=96750bec">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
 </div>
 </div>
 </div>
