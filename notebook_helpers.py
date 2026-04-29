@@ -140,7 +140,9 @@ def smooth_segment(x, y):
     return smoothed[:, 0], smoothed[:, 1]
 
 
-def save_figure(fig, filename, out_dir="causal_analysis_figures"):
+def save_figure(fig, filename, out_dir=None):
+    if out_dir is None:
+        out_dir = Path(__file__).resolve().parent / "reports" / "causal_analysis_figures"
     out_dir = Path(out_dir)
     out_dir.mkdir(exist_ok=True)
     out_path = out_dir / filename
