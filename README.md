@@ -2,7 +2,7 @@
 
 This repository contains the full workflow for a project on generative AI exposure, unemployment, and wages using CPS ASEC data. The main question is whether workers in industries with higher AI exposure experienced different labor market outcomes after the arrival of GenAI tools, and whether those patterns were more pronounced for younger workers.
 
-The final stakeholder-facing memo, the technical memo notebook, the analytical notebook, and the data-construction workflow are all included here.
+The final stakeholder-facing memo, the technical appendix notebook, the analytical notebook, and the data-construction workflow are all included here.
 
 ## Where The Main Work Lives
 
@@ -12,10 +12,15 @@ The final workflow is centered on four files:
   Builds the analytical dataset by merging CPS ASEC data with the AIIE / AIOE exposure files and the Census crosswalks.
 - `models/causal_analysis.ipynb`
   Contains the main descriptive analysis, event-study checks, difference-in-differences models, robustness checks, and age heterogeneity analysis.
-- `reports/data_science_memo.ipynb`
-  Contains the stakeholder-facing memo plus the technical appendix.
+- `reports/appendix_data_science_memo.ipynb`
+  Contains the technical appendix and reproducibility material derived from the main analysis.
 - `notebook_helpers.py`
   Shared helper functions used across notebooks.
+
+The final stakeholder-facing deliverable itself is:
+
+- `reports/UDS Final Project Memo.pdf`
+  Concise memo submitted for the project.
 
 
 ## Repository Structure
@@ -25,7 +30,7 @@ The final workflow is centered on four files:
 - `models/`
   Analysis notebooks and helper scripts related to model estimation and figure generation.
 - `reports/`
-  Final report artifacts, exported memo files, the memo notebook, the stakeholder report, and copied figure assets.
+  Final report artifacts, exported appendix files, the stakeholder report, and copied figure assets.
 - `reports/causal_analysis_figures/`
   Saved figures produced by the causal analysis workflow.
 - `reports/figures/`
@@ -102,24 +107,23 @@ This writes figures into:
 
 - `reports/causal_analysis_figures/`
 
-### 5. Rerun the memo notebook
+### 5. Rerun the appendix notebook
 
 Run:
 
-- `reports/data_science_memo.ipynb`
+- `reports/appendix_data_science_memo.ipynb`
 
-This notebook contains the final stakeholder memo plus a technical appendix. It references the saved figures in `reports/causal_analysis_figures/`.
+This notebook contains the technical appendix and reproducibility material. It references the saved figures in `reports/causal_analysis_figures/`.
 
-### 6. Export the memo notebook
+### 6. Export the appendix notebook
 
-The notebook includes export cells at the bottom. From inside the notebook directory, they create:
+The notebook includes an export cell at the bottom. From inside the notebook directory, it creates:
 
-- `reports/data_science_memo_submission.html`
-- `reports/no_code_data_science_memo_submission.html`
+- `reports/appendix_data_science_memo.html`
 
+The figures used in the report already live in:
 
-It also copies the figure assets into:
-
+- `reports/causal_analysis_figures/`
 - `reports/figures/`
 
 ## Main Outputs
@@ -127,20 +131,19 @@ It also copies the figure assets into:
 Key final outputs in `reports/`:
 - `UDS Final Project Memo.pdf`
   Stakeholder-oriented memo without the technical appendix, this is what we submitted.
-- `data_science_memo.ipynb`
-  Main memo notebook with stakeholder memo and technical appendix.
-- `data_science_memo_submission.html`
-  Exported version of the memo notebook.
-- `data_science_memo.pdf`
-- `data_science_memo_submission.pdf`
-  PDF report outputs.
+- `appendix_data_science_memo.ipynb`
+  Main appendix notebook with technical details and reproducibility material.
+- `appendix_data_science_memo.html`
+  Exported appendix notebook output.
+- `appendix_data_science_memo.pdf`
+  Saved PDF version of the appendix notebook.
 
 
 ## Notes
 
-- The final memo notebook is in `reports/`, not `models/`.
+- The final appendix notebook is in `reports/`, not `models/`.
 - The analysis figures used in the memo are stored in `reports/causal_analysis_figures/`.
 - `notebook_helpers.py` is the shared source of helper functions. The notebooks are designed to import from it rather than redefining the same functions in multiple places.
 - The stakeholder memo and the technical appendix serve different audiences:
   - `reports/UDS Final Project Memo.pdf` is the concise, non-technical memo for submission.
-  - `reports/data_science_memo.ipynb` includes the more detailed appendix and reproducibility material.
+  - `reports/appendix_data_science_memo.ipynb` includes the more detailed appendix and reproducibility material.

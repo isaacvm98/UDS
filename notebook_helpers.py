@@ -210,6 +210,8 @@ def coef_table(result, keep=None):
         {
             "coef": result.params,
             "std_err": result.bse,
+            "ci_low": result.params - 1.96 * result.bse,
+            "ci_high": result.params + 1.96 * result.bse,
             "p_value": result.pvalues,
         }
     )
@@ -227,10 +229,17 @@ def wald_difference_test(result, positive_term, negative_term, comparison_label)
     restriction[0, param_names.index(positive_term)] = 1
     restriction[0, param_names.index(negative_term)] = -1
     test = result.wald_test(restriction, scalar=True)
+    diff = float(result.params[positive_term] - result.params[negative_term])
+    cov = result.cov_params().to_numpy()
+    diff_var = float((restriction @ cov @ restriction.T).item())
+    diff_se = np.sqrt(diff_var)
     return pd.DataFrame(
         {
             "comparison": [comparison_label],
-            "difference": [result.params[positive_term] - result.params[negative_term]],
+            "difference": [diff],
+            "std_err": [diff_se],
+            "ci_low": [diff - 1.96 * diff_se],
+            "ci_high": [diff + 1.96 * diff_se],
             "wald_stat": [float(test.statistic)],
             "p_value": [float(test.pvalue)],
         }
