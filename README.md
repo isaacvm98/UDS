@@ -125,7 +125,7 @@ It also copies the figure assets into:
 ## Main Outputs
 
 Key final outputs in `reports/`:
-- `data_science_memo_stakeholder.pdf`
+- `UDS Final Project Memo.pdf`
   Stakeholder-oriented memo without the technical appendix, this is what we submitted.
 - `data_science_memo.ipynb`
   Main memo notebook with stakeholder memo and technical appendix.
@@ -142,5 +142,5 @@ Key final outputs in `reports/`:
 - The analysis figures used in the memo are stored in `reports/causal_analysis_figures/`.
 - `notebook_helpers.py` is the shared source of helper functions. The notebooks are designed to import from it rather than redefining the same functions in multiple places.
 - The stakeholder memo and the technical appendix serve different audiences:
-  - `reports/data_science_memo_stakeholder.pdf` is the concise, non-technical memo for submission.
+  - `reports/UDS Final Project Memo.pdf` is the concise, non-technical memo for submission.
   - `reports/data_science_memo.ipynb` includes the more detailed appendix and reproducibility material.

@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>data_science_memo</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>appendix_data_science_memo</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7332,7 +7332,12 @@ a.anchor-link {
     if (!diagrams.length) {
       return;
     }
-    const mermaid = (await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.esm.min.mjs")).default;
+    const mermaid = (await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.10.0/mermaid.esm.min.mjs")).default;
+    const elkUrl = "https://cdnjs.cloudflare.com/ajax/libs/mermaid-layout-elk/0.1.9/mermaid-layout-elk.esm.min.mjs";
+    if(elkUrl) {
+      const elkLayouts = (await import(elkUrl)).default;
+      mermaid.registerLayoutLoaders(elkLayouts);
+    }
     const parser = new DOMParser();
 
     mermaid.initialize({
@@ -7429,7 +7434,8 @@ a.anchor-link {
      * Post-process to ensure mermaid diagrams contain only valid SVG and XHTML.
      */
     function cleanMermaidSvg(svg) {
-      return svg.replace(RE_VOID_ELEMENT, replaceVoidElement);
+      svg = svg.replace(RE_VOID_ELEMENT, replaceVoidElement);
+      return `${SVG_XML_HEADER}${svg}`;
     }
 
 
@@ -7455,6 +7461,285 @@ a.anchor-link {
       }
       return `<${tag} ${rest}>`;
     }
+
+
+  /**
+   * Named HTML entities with their decimal equivalent codes.
+   *
+   * @see https://www.w3.org/TR/WD-html40-970708/sgml/entities.html
+   * */
+  const HTML_ENTITIES = `<!ENTITY Aacute "&#193;">
+<!ENTITY aacute "&#225;">
+<!ENTITY Acirc "&#194;">
+<!ENTITY acirc "&#226;">
+<!ENTITY acute "&#180;">
+<!ENTITY AElig "&#198;">
+<!ENTITY aelig "&#230;">
+<!ENTITY Agrave "&#192;">
+<!ENTITY agrave "&#224;">
+<!ENTITY alefsym "&#8501;">
+<!ENTITY Alpha "&#913;">
+<!ENTITY alpha "&#945;">
+<!ENTITY amp "&#38;">
+<!ENTITY and "&#8869;">
+<!ENTITY ang "&#8736;">
+<!ENTITY Aring "&#197;">
+<!ENTITY aring "&#229;">
+<!ENTITY asymp "&#8776;">
+<!ENTITY Atilde "&#195;">
+<!ENTITY atilde "&#227;">
+<!ENTITY Auml "&#196;">
+<!ENTITY auml "&#228;">
+<!ENTITY bdquo "&#8222;">
+<!ENTITY Beta "&#914;">
+<!ENTITY beta "&#946;">
+<!ENTITY brvbar "&#166;">
+<!ENTITY bull "&#8226;">
+<!ENTITY cap "&#8745;">
+<!ENTITY Ccedil "&#199;">
+<!ENTITY ccedil "&#231;">
+<!ENTITY cedil "&#184;">
+<!ENTITY cent "&#162;">
+<!ENTITY Chi "&#935;">
+<!ENTITY chi "&#967;">
+<!ENTITY circ "&#710;">
+<!ENTITY clubs "&#9827;">
+<!ENTITY cong "&#8773;">
+<!ENTITY copy "&#169;">
+<!ENTITY crarr "&#8629;">
+<!ENTITY cup "&#8746;">
+<!ENTITY curren "&#164;">
+<!ENTITY dagger "&#8224;">
+<!ENTITY Dagger "&#8225;">
+<!ENTITY darr "&#8595;">
+<!ENTITY dArr "&#8659;">
+<!ENTITY deg "&#176;">
+<!ENTITY Delta "&#916;">
+<!ENTITY delta "&#948;">
+<!ENTITY diams "&#9830;">
+<!ENTITY divide "&#247;">
+<!ENTITY Eacute "&#201;">
+<!ENTITY eacute "&#233;">
+<!ENTITY Ecirc "&#202;">
+<!ENTITY ecirc "&#234;">
+<!ENTITY Egrave "&#200;">
+<!ENTITY egrave "&#232;">
+<!ENTITY empty "&#8709;">
+<!ENTITY emsp "&#8195;">
+<!ENTITY ensp "&#8194;">
+<!ENTITY epsilon "&#949;">
+<!ENTITY Epsilon "&#917;">
+<!ENTITY equiv "&#8801;">
+<!ENTITY Eta "&#919;">
+<!ENTITY eta "&#951;">
+<!ENTITY ETH "&#208;">
+<!ENTITY eth "&#240;">
+<!ENTITY Euml "&#203;">
+<!ENTITY euml "&#235;">
+<!ENTITY exist "&#8707;">
+<!ENTITY fnof "&#402;">
+<!ENTITY forall "&#8704;">
+<!ENTITY frac12 "&#189;">
+<!ENTITY frac14 "&#188;">
+<!ENTITY frac34 "&#190;">
+<!ENTITY frasl "&#8260;">
+<!ENTITY Gamma "&#915;">
+<!ENTITY gamma "&#947;">
+<!ENTITY ge "&#8805;">
+<!ENTITY gt "&#62;">
+<!ENTITY harr "&#8596;">
+<!ENTITY hArr "&#8660;">
+<!ENTITY hearts "&#9829;">
+<!ENTITY hellip "&#8230;">
+<!ENTITY Iacute "&#205;">
+<!ENTITY iacute "&#237;">
+<!ENTITY Icirc "&#206;">
+<!ENTITY icirc "&#238;">
+<!ENTITY iexcl "&#161;">
+<!ENTITY Igrave "&#204;">
+<!ENTITY igrave "&#236;">
+<!ENTITY image "&#8465;">
+<!ENTITY infin "&#8734;">
+<!ENTITY int "&#8747;">
+<!ENTITY Iota "&#921;">
+<!ENTITY iota "&#953;">
+<!ENTITY iquest "&#191;">
+<!ENTITY isin "&#8712;">
+<!ENTITY Iuml "&#207;">
+<!ENTITY iuml "&#239;">
+<!ENTITY Kappa "&#922;">
+<!ENTITY kappa "&#954;">
+<!ENTITY Lambda "&#923;">
+<!ENTITY lambda "&#955;">
+<!ENTITY lang "&#9001;">
+<!ENTITY laquo "&#171;">
+<!ENTITY larr "&#8592;">
+<!ENTITY lArr "&#8656;">
+<!ENTITY lceil "&#8968;">
+<!ENTITY ldquo "&#8220;">
+<!ENTITY le "&#8804;">
+<!ENTITY lfloor "&#8970;">
+<!ENTITY lowast "&#8727;">
+<!ENTITY loz "&#9674;">
+<!ENTITY lrm "&#8206;">
+<!ENTITY lsaquo "&#8249;">
+<!ENTITY lsquo "&#8216;">
+<!ENTITY lt "&#60;">
+<!ENTITY macr "&#175;">
+<!ENTITY mdash "&#8212;">
+<!ENTITY micro "&#181;">
+<!ENTITY middot "&#183;">
+<!ENTITY minus "&#8722;">
+<!ENTITY Mu "&#924;">
+<!ENTITY mu "&#956;">
+<!ENTITY nabla "&#8711;">
+<!ENTITY nbsp "&#160;">
+<!ENTITY ndash "&#8211;">
+<!ENTITY ne "&#8800;">
+<!ENTITY ni "&#8715;">
+<!ENTITY not "&#172;">
+<!ENTITY notin "&#8713;">
+<!ENTITY nsub "&#8836;">
+<!ENTITY Ntilde "&#209;">
+<!ENTITY ntilde "&#241;">
+<!ENTITY Nu "&#925;">
+<!ENTITY nu "&#957;">
+<!ENTITY Oacute "&#211;">
+<!ENTITY oacute "&#243;">
+<!ENTITY Ocirc "&#212;">
+<!ENTITY ocirc "&#244;">
+<!ENTITY OElig "&#338;">
+<!ENTITY oelig "&#339;">
+<!ENTITY Ograve "&#210;">
+<!ENTITY ograve "&#242;">
+<!ENTITY oline "&#8254;">
+<!ENTITY Omega "&#937;">
+<!ENTITY omega "&#969;">
+<!ENTITY Omicron "&#927;">
+<!ENTITY omicron "&#959;">
+<!ENTITY oplus "&#8853;">
+<!ENTITY or "&#8870;">
+<!ENTITY ordf "&#170;">
+<!ENTITY ordm "&#186;">
+<!ENTITY Oslash "&#216;">
+<!ENTITY oslash "&#248;">
+<!ENTITY Otilde "&#213;">
+<!ENTITY otilde "&#245;">
+<!ENTITY otimes "&#8855;">
+<!ENTITY Ouml "&#214;">
+<!ENTITY ouml "&#246;">
+<!ENTITY para "&#182;">
+<!ENTITY part "&#8706;">
+<!ENTITY permil "&#8240;">
+<!ENTITY perp "&#8869;">
+<!ENTITY Phi "&#934;">
+<!ENTITY phi "&#966;">
+<!ENTITY Pi "&#928;">
+<!ENTITY pi "&#960;">
+<!ENTITY piv "&#982;">
+<!ENTITY plusmn "&#177;">
+<!ENTITY pound "&#163;">
+<!ENTITY prime "&#8242;">
+<!ENTITY Prime "&#8243;">
+<!ENTITY prod "&#8719;">
+<!ENTITY prop "&#8733;">
+<!ENTITY Psi "&#936;">
+<!ENTITY psi "&#968;">
+<!ENTITY quot "&#34;">
+<!ENTITY radic "&#8730;">
+<!ENTITY rang "&#9002;">
+<!ENTITY raquo "&#187;">
+<!ENTITY rarr "&#8594;">
+<!ENTITY rArr "&#8658;">
+<!ENTITY rceil "&#8969;">
+<!ENTITY rdquo "&#8221;">
+<!ENTITY real "&#8476;">
+<!ENTITY reg "&#174;">
+<!ENTITY rfloor "&#8971;">
+<!ENTITY Rho "&#929;">
+<!ENTITY rho "&#961;">
+<!ENTITY rlm "&#8207;">
+<!ENTITY rsaquo "&#8250;">
+<!ENTITY rsquo "&#8217;">
+<!ENTITY sbquo "&#8218;">
+<!ENTITY Scaron "&#352;">
+<!ENTITY scaron "&#353;">
+<!ENTITY sdot "&#8901;">
+<!ENTITY sect "&#167;">
+<!ENTITY shy "&#173;">
+<!ENTITY Sigma "&#931;">
+<!ENTITY sigma "&#963;">
+<!ENTITY sigmaf "&#962;">
+<!ENTITY sim "&#8764;">
+<!ENTITY spades "&#9824;">
+<!ENTITY sub "&#8834;">
+<!ENTITY sube "&#8838;">
+<!ENTITY sum "&#8721;">
+<!ENTITY sup "&#8835;">
+<!ENTITY sup1 "&#185;">
+<!ENTITY sup2 "&#178;">
+<!ENTITY sup3 "&#179;">
+<!ENTITY supe "&#8839;">
+<!ENTITY szlig "&#223;">
+<!ENTITY Tau "&#932;">
+<!ENTITY tau "&#964;">
+<!ENTITY there4 "&#8756;">
+<!ENTITY Theta "&#920;">
+<!ENTITY theta "&#952;">
+<!ENTITY thetasym "&#977;">
+<!ENTITY thinsp "&#8201;">
+<!ENTITY THORN "&#222;">
+<!ENTITY thorn "&#254;">
+<!ENTITY tilde "&#732;">
+<!ENTITY times "&#215;">
+<!ENTITY trade "&#8482;">
+<!ENTITY Uacute "&#218;">
+<!ENTITY uacute "&#250;">
+<!ENTITY uarr "&#8593;">
+<!ENTITY uArr "&#8657;">
+<!ENTITY Ucirc "&#219;">
+<!ENTITY ucirc "&#251;">
+<!ENTITY Ugrave "&#217;">
+<!ENTITY ugrave "&#249;">
+<!ENTITY uml "&#168;">
+<!ENTITY upsih "&#978;">
+<!ENTITY Upsilon "&#933;">
+<!ENTITY upsilon "&#965;">
+<!ENTITY Uuml "&#220;">
+<!ENTITY uuml "&#252;">
+<!ENTITY weierp "&#8472;">
+<!ENTITY Xi "&#926;">
+<!ENTITY xi "&#958;">
+<!ENTITY Yacute "&#221;">
+<!ENTITY yacute "&#253;">
+<!ENTITY yen "&#165;">
+<!ENTITY Yuml "&#376;">
+<!ENTITY yuml "&#255;">
+<!ENTITY Zeta "&#918;">
+<!ENTITY zeta "&#950;">
+<!ENTITY zwj "&#8205;">
+<!ENTITY zwnj "&#8204;">`.replace(/\n/g, ' ');
+
+  /**
+   * A reasonably strict xml declaration.
+   */
+  const XML_DECL = '<?xml version="1.0" standalone="no"?>';
+
+  /**
+   * The beginning of the XML doctype declaration.
+   */
+  const DOCTYPE_START = `<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [`;
+
+  /**
+   * The end of the XML docype declaration.
+   */
+  const DOCTYPE_END = ']>';
+
+  /**
+   * A full header for an SVG XML document.
+   */
+  const SVG_XML_HEADER = `${XML_DECL}
+    ${DOCTYPE_START}${HTML_ENTITIES}${DOCTYPE_END}`;
 
     void Promise.all([...diagrams].map(renderOneMarmaid));
   });
@@ -7511,255 +7796,12 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5e4ed625">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Early-Evidence-on-Generative-AI-Exposure-and-Labor-Market-Outcomes">Early Evidence on Generative AI Exposure and Labor Market Outcomes<a class="anchor-link" href="#Early-Evidence-on-Generative-AI-Exposure-and-Labor-Market-Outcomes">¶</a></h1><p><strong>Team Members:</strong> Aesha Gandhi, Pinaki Ghosh, Shambhavi Khanna, Isaac Vergara<br/>
-<strong>Stakeholder:</strong> Director of Workforce Policy, State Department of Labor<br/>
-<strong>Repository:</strong> <a href="https://github.com/isaacvm98/UDS/tree/main">GitHub Repository</a></p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=86a81104">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Stakeholder-Summary">Stakeholder Summary<a class="anchor-link" href="#Stakeholder-Summary">¶</a></h2><p>This memo is written for a Director of Workforce Policy at a state Department of Labor. The intended stakeholder is assumed to be comfortable interpreting applied research and labor market indicators, but not interested in econometric detail. The main priority is actionable evidence that can inform workforce planning and early-career employment policy.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8c94b782">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Executive-Summary">Executive Summary<a class="anchor-link" href="#Executive-Summary">¶</a></h2><p>This memo examines whether workers in industries with higher exposure to generative AI experienced different labor market outcomes after the arrival of GenAI tools, and whether those patterns were more pronounced for younger workers. The analysis uses CPS ASEC data from 2016-2025, links those records to an industry-level AI exposure measure (<code>AIIE</code>), and compares how employment outcomes changed after the GenAI period began.</p>
-<p>The clearest pattern is a modest worsening in unemployment outcomes after 2023 for workers in higher-AI-exposure industries. That shift appears more pronounced for workers ages 25-34 than for older workers. By contrast, no comparable wage effect is visible in the data over this short post period.</p>
-<p>These results should be interpreted with caution. The unemployment findings are more informative than the wage findings, but neither result should be treated as definitive proof of causality. Even so, the evidence points to a practical concern for this stakeholder: labor market conditions may be softening somewhat more for younger workers in AI-exposed sectors, which makes those workers an appropriate focus for monitoring and policy attention.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e982e83e">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Decisions-To-Be-Made">Decisions To Be Made<a class="anchor-link" href="#Decisions-To-Be-Made">¶</a></h2><p>Based on these findings, three near-term decisions appear especially relevant:</p>
-<ol>
-<li>Whether to prioritize monitoring and support for younger workers in AI-exposed sectors, especially workers in the 25-34 range.</li>
-<li>Whether to expand labor-market monitoring so that hiring, job-finding, and layoffs can be separated more clearly in future work.</li>
-<li>Whether to treat wage changes as a secondary indicator and focus policy attention first on employment outcomes.</li>
-</ol>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=11e385a7">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="The-Problem">The Problem<a class="anchor-link" href="#The-Problem">¶</a></h2><p>Public debate about generative AI often revolves around questions of job displacement or wage depression by artificial intelligence. From the perspective of a labor market policymaker, however, a more pertinent question might be limited to whether workers in more exposed industries are experiencing worse labor market outcomes, especially among younger workers.</p>
-<p>Importantly, the study analyzes labor force participation rates among workers aged 25-34, a population that represents recent entrants into the workforce, as well as older workers who have multiple years of work experience and may be encountering less hiring, layoffs, or even stagnating careers due to exposure to artificial intelligence. The issue, therefore, extends beyond simply entering the labor market; it concerns whether labor force participation rates are declining faster among early-career workers in industries affected by artificial intelligence than other, older workers. The Current Population Survey Annual Social and Economic Supplement does not have a separate variable measuring layoffs.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5b874725">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Analytical-Approach">Analytical Approach<a class="anchor-link" href="#Analytical-Approach">¶</a></h2><p>To study this question, CPS ASEC data from 2016-2025 were merged with an industry-level AI exposure measure, <code>AIIE</code>. The analysis then compares how unemployment and wage outcomes changed after the GenAI period began in industries with higher AI exposure versus industries with lower AI exposure.</p>
-<p>The memo focuses on two outcomes:</p>
-<ul>
-<li>Unemployment</li>
-<li>Wage income</li>
-</ul>
-<p>The analysis also looks separately at younger workers ages 25-34 to assess whether labor market changes appear more concentrated earlier in workers' careers.</p>
-<p>Examples of relatively high-AI-exposure industries in this sample include legal services, accounting and payroll services, computer systems design, and management consulting. Lower-exposure examples include landscaping, services to buildings and dwellings, warehousing and storage, and truck transportation. These examples are drawn from industries near the top and bottom of the AI exposure distribution in the sample, and are intended to give a concrete sense of what higher- and lower-exposure industries look like in practice.</p>
-<p>More emphasis is placed on the unemployment results because they are more consistent with the assumptions needed for this type of comparison. The wage results are still useful descriptively, but they are less persuasive as evidence of a distinct AI-related shift.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3d0a0adf">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Descriptive-Patterns">Descriptive Patterns<a class="anchor-link" href="#Descriptive-Patterns">¶</a></h2><p>The descriptive trends help establish the baseline pattern before turning to the main comparisons. The plots below show annual averages with smooth pre- and post-period trend lines and uncertainty bands. High-AI-exposure industries generally have lower unemployment than low-exposure industries throughout the sample, but that gap narrows after the GenAI period begins.</p>
-<img alt="No description has been provided for this image" src="causal_analysis_figures/01_weighted_unemployment_rate_by_ai_exposure_group.png" width="820"/>
-<p><em>Figure 1. Annual unemployment averages by AI exposure group, with separate pre/post LOWESS fits and 95% confidence bands.</em></p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b7a6f659">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The age-focused descriptive plots point in the same direction. The relative post-period unemployment shift appears more pronounced for workers ages 25-34 than for workers ages 50-64, although the descriptive evidence alone does not identify the reason for that difference.</p>
-<img alt="No description has been provided for this image" src="causal_analysis_figures/03_weighted_unemployment_rate_by_ai_exposure_group_early_career_25_34.png" width="820"/>
-<p><em>Figure 2. Annual unemployment averages for workers ages 25-34, with separate pre/post LOWESS fits and 95% confidence bands.</em></p>
-<img alt="No description has been provided for this image" src="causal_analysis_figures/04_weighted_unemployment_rate_by_ai_exposure_group_older_workers_50_64.png" width="820"/>
-<p><em>Figure 3. Annual unemployment averages for workers ages 50-64, with separate pre/post LOWESS fits and 95% confidence bands.</em></p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4152b800">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The wage plot is included for completeness, but it shows much less visual separation by exposure group after the GenAI period begins.</p>
-<img alt="No description has been provided for this image" src="causal_analysis_figures/02_weighted_log_wage_income_by_ai_exposure_group.png" width="820"/>
-<p><em>Figure 4. Annual log wage averages by AI exposure group, with separate pre/post LOWESS fits and 95% confidence bands.</em></p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ccb0fd1f">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Main-Findings">Main Findings<a class="anchor-link" href="#Main-Findings">¶</a></h2><h3 id="1.-Higher-AI-exposure-is-associated-with-a-relative-increase-in-unemployment-after-2023">1. Higher AI exposure is associated with a relative increase in unemployment after 2023<a class="anchor-link" href="#1.-Higher-AI-exposure-is-associated-with-a-relative-increase-in-unemployment-after-2023">¶</a></h3><p>The main unemployment comparison suggests that unemployment outcomes worsened slightly more after 2023 in higher-AI-exposure industries than in lower-exposure industries.</p>
-<p>This is a modest effect, not a dramatic one. It also does not mean exposed industries became high-unemployment industries overall. In the raw data, those industries still tend to have lower unemployment than less-exposed industries. The key point is that their advantage narrowed in the post period.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=09d8a596">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="2.-The-unemployment-shift-is-larger-for-workers-ages-25-34">2. The unemployment shift is larger for workers ages 25-34<a class="anchor-link" href="#2.-The-unemployment-shift-is-larger-for-workers-ages-25-34">¶</a></h3><p>The age comparison suggests that the post-period unemployment shift is larger for workers ages 25-34 than for workers ages 35-64.</p>
-<p>That pattern matters because it suggests the labor market impact is not evenly spread across age groups. At the same time, the analysis does not identify the exact mechanism. The safest conclusion is that younger workers in higher-AI-exposure industries experienced relatively weaker unemployment outcomes after 2023.</p>
-<p>Notably, the observed gap between the two cohorts is more than just an interesting trend seen in the data; it is sufficiently large to be assured that it is unlikely to occur by chance. The results show that the change in unemployment since 2023 is significantly greater for workers aged 25-34 compared to those aged 35-64, controlling for age and educational attainment by industry.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9377f46b">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="3.-The-youngest-subgroup-shows-the-largest-point-estimate,-but-the-age-split-is-not-conclusive">3. The youngest subgroup shows the largest point estimate, but the age split is not conclusive<a class="anchor-link" href="#3.-The-youngest-subgroup-shows-the-largest-point-estimate,-but-the-age-split-is-not-conclusive">¶</a></h3><p>When the younger group is split further, the estimated effect is larger for ages 25-29 than for ages 30-34. However, that difference is not statistically precise enough to support a strong claim that the youngest subgroup is distinctly more affected.</p>
-<p>The age-split evidence is therefore best treated as suggestive. It points toward somewhat greater vulnerability among the youngest workers in the sample, but it does not establish a sharp divide within the 25-34 group.</p>
-<p>In considering the division of the young generation into workers aged 25-29 and workers aged 30-34, the effect seems somewhat greater for the latter. Nevertheless, the discrepancy between the two groups is not large enough to suggest anything other than statistical fluctuations that may have occurred in the course of the experiment. It seems best to consider that the effect occurs somewhat more clearly in the case of workers aged 25-29, while no line should yet be drawn between them.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3c29b137">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="4.-No-meaningful-wage-effect-is-detected">4. No meaningful wage effect is detected<a class="anchor-link" href="#4.-No-meaningful-wage-effect-is-detected">¶</a></h3><p>The wage analysis does not show evidence that wages changed differently after 2024 in higher-AI-exposure industries.</p>
-<p>This should not be read as proof that AI has no wage effects. The post period is still short, and wage adjustments may take longer to appear. The wage analysis is also the weaker comparison in this memo because its pre-period patterns are less stable.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=55cf7504">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Why-the-Unemployment-Result-Is-More-Informative-Than-the-Wage-Result">Why the Unemployment Result Is More Informative Than the Wage Result<a class="anchor-link" href="#Why-the-Unemployment-Result-Is-More-Informative-Than-the-Wage-Result">¶</a></h2><p>In order to be confident that the post-2023 divergence in unemployment was not merely a result of pre-existing trends, one needs to establish whether there were any signs of growing apart between higher- and lower-AI-exposed industries before the generative AI was popularized. Here, the logic is simple, if the two industries were already diverging before 2023, one cannot confidently claim that their separation is caused by AI. On the other hand, if the two industries were moving alike and only started diverging after 2023, such results are likely caused by AI.</p>
-<p>This test proves rather positive for unemployment but not quite for wage. In most years before 2023, higher- and lower-AI-exposure industries behaved almost alike in terms of unemployment. As for wages, higher-AI-exposed industries had been earning more money long before the arrival of generative AI. Thus, in terms of wages, the current results are hardly convincing enough since any increase in wages is hardly attributed to AI but rather to something else. This explains the rationale behind paying more attention to unemployment data rather than wages in this memo.</p>
-<img alt="No description has been provided for this image" src="causal_analysis_figures/07_event_studies_unemployment_and_log_wage_combined.png" width="860"/>
-<p><em>Figure 5. Year-by-year comparisons of how each outcome is associated with AI exposure, using 2022 as the reference year.</em></p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6d30deb5">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The robustness check that drops 2020 reaches a similar conclusion. The unemployment pattern remains visible, which reduces concern that the result is being driven entirely by pandemic-era volatility.</p>
-<img alt="No description has been provided for this image" src="causal_analysis_figures/08_event_studies_unemployment_and_log_wage_no_2020_combined.png" width="860"/>
-<p><em>Figure 6. The same year-by-year comparison excluding 2020. The broad pattern remains similar.</em></p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5c0282e2">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Robustness">Robustness<a class="anchor-link" href="#Robustness">¶</a></h2><p>The younger-worker unemployment pattern remains visible after dropping 2020, the most unusual COVID year. That reduces concern that the main result is being driven entirely by pandemic volatility.</p>
-<p>At the same time, the broader caution remains the same: these checks improve confidence that the pattern is not a one-year anomaly, but they do not turn the analysis into definitive causal proof.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b7ecbc46">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Limitations">Limitations<a class="anchor-link" href="#Limitations">¶</a></h2><p>This analysis has a few important limitations.</p>
-<p>First, the CPS is a repeated cross-section, not a panel, so the same worker cannot be followed over time. The results therefore describe changes in group-level outcomes rather than individual trajectories.</p>
-<p>Second, <code>AIIE</code> measures potential AI exposure based on industry task content, not actual AI adoption by a specific employer.</p>
-<p>Third, the data in this case do not differentiate between whether workers were laid off because of involuntary conditions or they chose to leave their employment for whatever reason. Therefore, the results of unemployment may be as a consequence of either hiring being lower or firing being higher, or both.</p>
-<p>Fourth, the post period is still short, especially for wages.</p>
-<p>Finally, the supporting diagnostic checks are more favorable for unemployment than for wages, but they are not strong enough to remove all concern about pre-existing differences across industries.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=cda93305">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">¶</a></h2><p>The main takeaway is that labor market conditions appear to have weakened somewhat more after 2023 for younger workers in higher-AI-exposure industries. The unemployment comparison points in that direction, and the age breakdown suggests the pattern is stronger for workers ages 25-34 than for older workers.</p>
-<p>That said, the memo should not be read as definitive proof that generative AI caused these changes. The evidence is better viewed as an early warning signal. For this stakeholder, the most practical implication is that younger workers in AI-exposed sectors warrant closer monitoring, while wage effects are not yet clearly visible in the data.</p>
-</div>
-</div>
-</div>
-</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fc7cf35a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div style="page-break-before: always;"></div>
 <style>
 .rendered_html, .jp-RenderedHTMLCommon {
   overflow-wrap: anywhere;
@@ -7781,6 +7823,17 @@ pre, code, .highlight pre, .jp-CodeCell .cm-content, .jp-Cell .output pre {
   max-width: 100%;
 }
 </style>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2ada5d6f">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h1 id="Appendix">Appendix<a class="anchor-link" href="#Appendix">¶</a></h1>
 </div>
 </div>
 </div>
@@ -7807,7 +7860,7 @@ pre, code, .highlight pre, .jp-CodeCell .cm-content, .jp-Cell .output pre {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Appendix-A.-Data-Assembly-Code">Appendix A. Data Assembly Code<a class="anchor-link" href="#Appendix-A.-Data-Assembly-Code">¶</a></h3><p>The code below shows how the CPS data were merged with industry-level AI exposure (<code>AIIE</code>) and occupation-level AI exposure (<code>AIOE</code>). Because CPS ASEC uses three different Census industry vintages across 2016–2025 (2012 codes for 2016–2019, 2017 codes for 2020–2024, 2022 codes for 2025), the assembly builds a single unified AIIE lookup that covers all three vintages via alias rows so every year resolves against the same table.</p>
+<h3 id="Appendix-A.-Data-Assembly-Code">Appendix A. Data Assembly Code<a class="anchor-link" href="#Appendix-A.-Data-Assembly-Code">¶</a></h3><p>Below shows how the CPS data were merged with industry-level AI exposure (<code>AIIE</code>) and occupation-level AI exposure (<code>AIOE</code>). Because CPS ASEC uses three different Census industry vintages across 2016–2025 (2012 codes for 2016–2019, 2017 codes for 2020–2024, 2022 codes for 2025), the assembly builds a single unified AIIE lookup that covers all three vintages via alias rows so every year resolves against the same table.</p>
 </div>
 </div>
 </div>
@@ -7816,7 +7869,7 @@ pre, code, .highlight pre, .jp-CodeCell .cm-content, .jp-Cell .output pre {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [32]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -7965,7 +8018,7 @@ pre, code, .highlight pre, .jp-CodeCell .cm-content, .jp-Cell .output pre {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [33]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">aiie_lookup</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">aiie</span><span class="p">[</span><span class="s2">"NAICS"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">aiie</span><span class="p">[</span><span class="s2">"AIIE"</span><span class="p">]))</span>
@@ -8042,12 +8095,196 @@ pre, code, .highlight pre, .jp-CodeCell .cm-content, .jp-Cell .output pre {
 </div>
 </div>
 </div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=80b0170a">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">df_aiie</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[ ]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>YEAR</th>
+<th>SERIAL</th>
+<th>MONTH</th>
+<th>CPSID</th>
+<th>ASECFLAG</th>
+<th>ASECWTH</th>
+<th>PERNUM</th>
+<th>CPSIDP</th>
+<th>CPSIDV</th>
+<th>ASECWT</th>
+<th>AGE</th>
+<th>EMPSTAT</th>
+<th>LABFORCE</th>
+<th>OCC</th>
+<th>IND</th>
+<th>EDUC</th>
+<th>INCWAGE</th>
+<th>IND_2022</th>
+<th>industry_desc</th>
+<th>AIIE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>2016</td>
+<td>2</td>
+<td>3</td>
+<td>20141202933700</td>
+<td>1</td>
+<td>1132.05</td>
+<td>1</td>
+<td>20141202933701</td>
+<td>201412029337011</td>
+<td>1132.05</td>
+<td>79</td>
+<td>36</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>30</td>
+<td>0</td>
+<td>0</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>1</th>
+<td>2016</td>
+<td>7</td>
+<td>3</td>
+<td>20151202935900</td>
+<td>1</td>
+<td>1077.54</td>
+<td>1</td>
+<td>20151202935901</td>
+<td>201512029359011</td>
+<td>1077.54</td>
+<td>60</td>
+<td>32</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>50</td>
+<td>0</td>
+<td>0</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>2</th>
+<td>2016</td>
+<td>7</td>
+<td>3</td>
+<td>20151202935900</td>
+<td>1</td>
+<td>1077.54</td>
+<td>2</td>
+<td>20151202935902</td>
+<td>201512029359021</td>
+<td>1077.54</td>
+<td>59</td>
+<td>32</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>81</td>
+<td>0</td>
+<td>0</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>3</th>
+<td>2016</td>
+<td>8</td>
+<td>3</td>
+<td>20160202937400</td>
+<td>1</td>
+<td>1151.49</td>
+<td>1</td>
+<td>20160202937401</td>
+<td>201602029374011</td>
+<td>1151.49</td>
+<td>69</td>
+<td>36</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>81</td>
+<td>0</td>
+<td>0</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>4</th>
+<td>2016</td>
+<td>9</td>
+<td>3</td>
+<td>20160102910900</td>
+<td>1</td>
+<td>705.00</td>
+<td>1</td>
+<td>20160102910901</td>
+<td>201601029109011</td>
+<td>705.00</td>
+<td>24</td>
+<td>21</td>
+<td>2</td>
+<td>9140</td>
+<td>6190</td>
+<td>73</td>
+<td>6000</td>
+<td>6190</td>
+<td>Taxi and limousine service</td>
+<td>1.369857</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=597ffb49">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [34]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">aioe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">"../data/AIOE_DataAppendix.xlsx"</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s2">"Appendix A"</span><span class="p">)</span>
@@ -8093,12 +8330,94 @@ pre, code, .highlight pre, .jp-CodeCell .cm-content, .jp-Cell .output pre {
 </div>
 </div>
 </div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=23684bd1">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">occ_aioe</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[ ]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>OCC</th>
+<th>occ_desc</th>
+<th>AIOE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>10</td>
+<td>Chief executives</td>
+<td>1.334246</td>
+</tr>
+<tr>
+<th>1</th>
+<td>20</td>
+<td>General and operations managers</td>
+<td>0.574877</td>
+</tr>
+<tr>
+<th>2</th>
+<td>40</td>
+<td>Advertising and promotions managers</td>
+<td>1.294387</td>
+</tr>
+<tr>
+<th>3</th>
+<td>51</td>
+<td>Marketing managers</td>
+<td>1.315032</td>
+</tr>
+<tr>
+<th>4</th>
+<td>52</td>
+<td>Sales managers</td>
+<td>1.266280</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=5170a9ae">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [35]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">occ_changes</span> <span class="o">=</span> <span class="p">(</span>
@@ -8144,6 +8463,197 @@ pre, code, .highlight pre, .jp-CodeCell .cm-content, .jp-Cell .output pre {
 </div>
 </div>
 </div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=b5deb587">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">df_aiie</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[ ]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>YEAR</th>
+<th>SERIAL</th>
+<th>MONTH</th>
+<th>CPSID</th>
+<th>ASECFLAG</th>
+<th>ASECWTH</th>
+<th>PERNUM</th>
+<th>CPSIDP</th>
+<th>CPSIDV</th>
+<th>ASECWT</th>
+<th>...</th>
+<th>LABFORCE</th>
+<th>OCC</th>
+<th>IND</th>
+<th>EDUC</th>
+<th>INCWAGE</th>
+<th>IND_2022</th>
+<th>industry_desc</th>
+<th>AIIE</th>
+<th>occ_desc</th>
+<th>AIOE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>2016</td>
+<td>2</td>
+<td>3</td>
+<td>20141202933700</td>
+<td>1</td>
+<td>1132.05</td>
+<td>1</td>
+<td>20141202933701</td>
+<td>201412029337011</td>
+<td>1132.05</td>
+<td>...</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>30</td>
+<td>0</td>
+<td>0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>1</th>
+<td>2016</td>
+<td>7</td>
+<td>3</td>
+<td>20151202935900</td>
+<td>1</td>
+<td>1077.54</td>
+<td>1</td>
+<td>20151202935901</td>
+<td>201512029359011</td>
+<td>1077.54</td>
+<td>...</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>50</td>
+<td>0</td>
+<td>0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>2</th>
+<td>2016</td>
+<td>7</td>
+<td>3</td>
+<td>20151202935900</td>
+<td>1</td>
+<td>1077.54</td>
+<td>2</td>
+<td>20151202935902</td>
+<td>201512029359021</td>
+<td>1077.54</td>
+<td>...</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>81</td>
+<td>0</td>
+<td>0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>3</th>
+<td>2016</td>
+<td>8</td>
+<td>3</td>
+<td>20160202937400</td>
+<td>1</td>
+<td>1151.49</td>
+<td>1</td>
+<td>20160202937401</td>
+<td>201602029374011</td>
+<td>1151.49</td>
+<td>...</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>81</td>
+<td>0</td>
+<td>0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>4</th>
+<td>2016</td>
+<td>9</td>
+<td>3</td>
+<td>20160102910900</td>
+<td>1</td>
+<td>705.00</td>
+<td>1</td>
+<td>20160102910901</td>
+<td>201601029109011</td>
+<td>705.00</td>
+<td>...</td>
+<td>2</td>
+<td>9140</td>
+<td>6190</td>
+<td>73</td>
+<td>6000</td>
+<td>6190</td>
+<td>Taxi and limousine service</td>
+<td>1.369857</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+<p>5 rows × 22 columns</p>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bcfe5433">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -8185,7 +8695,7 @@ pre, code, .highlight pre, .jp-CodeCell .cm-content, .jp-Cell .output pre {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [36]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
@@ -8241,7 +8751,7 @@ pre, code, .highlight pre, .jp-CodeCell .cm-content, .jp-Cell .output pre {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [37]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -8283,7 +8793,7 @@ pre, code, .highlight pre, .jp-CodeCell .cm-content, .jp-Cell .output pre {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [38]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">notebook_helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -8389,7 +8899,7 @@ $$</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [39]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">summarize_sample</span><span class="p">(</span><span class="n">unemp_sample</span><span class="p">,</span> <span class="p">[</span><span class="s2">"AIIE"</span><span class="p">,</span> <span class="s2">"unemployed"</span><span class="p">,</span> <span class="s2">"AGE"</span><span class="p">]))</span>
@@ -8693,7 +9203,7 @@ $$</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [40]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">figure_specs</span> <span class="o">=</span> <span class="p">[</span>
@@ -8744,7 +9254,7 @@ $$</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [41]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">coverage_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
@@ -8843,7 +9353,7 @@ $$</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [42]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">notebook_helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -8863,7 +9373,7 @@ $$</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [43]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">unemp_event</span> <span class="o">=</span> <span class="n">fit_event_study</span><span class="p">(</span><span class="n">unemp_sample</span><span class="p">,</span> <span class="s2">"unemployed"</span><span class="p">,</span> <span class="n">reference_year</span><span class="o">=</span><span class="mi">2022</span><span class="p">)</span>
@@ -9169,7 +9679,7 @@ $$</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [44]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">m_unemp_base</span> <span class="o">=</span> <span class="n">run_wls</span><span class="p">(</span>
@@ -9205,7 +9715,7 @@ $$</p>
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[44]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[ ]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <div>
 <style scoped="">
@@ -9296,7 +9806,7 @@ $$</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [45]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">unemp_no20</span> <span class="o">=</span> <span class="n">unemp_sample</span><span class="p">[</span><span class="n">unemp_sample</span><span class="p">[</span><span class="s2">"YEAR"</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">2020</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -9504,7 +10014,7 @@ $$</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [46]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">unemp_sample</span><span class="p">[</span><span class="s2">"age_group"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span>
@@ -9671,15 +10181,15 @@ $$</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [49]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 
-<span class="n">notebook</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"data_science_memo.ipynb"</span><span class="p">)</span>
-<span class="n">output_name</span> <span class="o">=</span> <span class="s2">"data_science_memo_submission"</span>
+<span class="n">notebook</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"appendix_data_science_memo.ipynb"</span><span class="p">)</span>
+<span class="n">output_name</span> <span class="o">=</span> <span class="s2">"appendix_data_science_memo"</span>
 
 <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span>
@@ -9690,6 +10200,8 @@ $$</p>
     <span class="s2">"html"</span><span class="p">,</span>
     <span class="s2">"--output"</span><span class="p">,</span>
     <span class="n">output_name</span><span class="p">,</span>
+    <span class="s2">"--TagRemovePreprocessor.enabled=True"</span><span class="p">,</span>
+    <span class="s2">"--TagRemovePreprocessor.remove_cell_tags=remove_cell"</span><span class="p">,</span>
     <span class="s2">"--log-level=ERROR"</span><span class="p">,</span>
     <span class="nb">str</span><span class="p">(</span><span class="n">notebook</span><span class="p">),</span>
 <span class="p">]</span>
@@ -9711,14 +10223,14 @@ $$</p>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Running: /Users/aeshagandhi/Downloads/MIDS-Sp26/UDS/UDS-Project/.venv/bin/python -m jupyter nbconvert --to html --output data_science_memo_submission --log-level=ERROR data_science_memo.ipynb
+<pre>Running: /Users/aeshagandhi/Downloads/MIDS-Sp26/UDS/UDS-Project/.venv/bin/python -m jupyter nbconvert --to html --output data_science_memo_submission --TagRemovePreprocessor.enabled=True --TagRemovePreprocessor.remove_cell_tags=remove_cell --log-level=ERROR data_science_memo.ipynb
 Created data_science_memo_submission.html
 </pre>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=96750bec">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8ca4e435">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9726,9 +10238,67 @@ Created data_science_memo_submission.html
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># # version without code cells</span>
+
+<span class="c1"># notebook = Path("data_science_memo.ipynb")</span>
+<span class="c1"># output_name = "no_code_data_science_memo_submission"</span>
+
+<span class="c1"># cmd = [</span>
+<span class="c1">#     sys.executable,</span>
+<span class="c1">#     "-m",</span>
+<span class="c1">#     "jupyter",</span>
+<span class="c1">#     "nbconvert",</span>
+<span class="c1">#     "--to",</span>
+<span class="c1">#     "html",</span>
+<span class="c1">#     "--output",</span>
+<span class="c1">#     output_name,</span>
+<span class="c1">#     "--no-input",</span>
+<span class="c1">#     "--TagRemovePreprocessor.enabled=True",</span>
+<span class="c1">#     "--TagRemovePreprocessor.remove_cell_tags=remove_cell",</span>
+<span class="c1">#     "--log-level=ERROR",</span>
+<span class="c1">#     str(notebook),</span>
+<span class="c1"># ]</span>
+
+<span class="c1"># print("Running:", " ".join(cmd))</span>
+<span class="c1"># subprocess.run(</span>
+<span class="c1">#     cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True</span>
+<span class="c1"># )</span>
+<span class="c1"># print(f"Created {output_name}.html")</span>
 </pre></div>
 </div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Running: /Users/aeshagandhi/Downloads/MIDS-Sp26/UDS/UDS-Project/.venv/bin/python -m jupyter nbconvert --to html --output no_code_data_science_memo_submission --no-input --log-level=ERROR data_science_memo.ipynb
+Created no_code_data_science_memo_submission.html
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4cd818dd">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div style="page-break-before: always;"></div>
+<h3 id="Appendix-F.-Sources">Appendix F. Sources<a class="anchor-link" href="#Appendix-F.-Sources">¶</a></h3><p>The project draws on the following primary data and reference sources:</p>
+<p>Autor, David, Caroline Chin, Anna M. Salomons, and Bryan Seegmiller. <em>AI, Occupational Exposure, and the Future of Work.</em> Strategic Management Journal. Accessed through the article appendix and companion materials at <code>https://sms.onlinelibrary.wiley.com/doi/full/10.1002/smj.3286</code>.</p>
+<p>AIOE Data. <em>AIOE Data Repository.</em> GitHub repository. <code>https://github.com/AIOE-Data</code>.</p>
+<p>Flood, Sarah, Miriam King, Renae Rodgers, Steven Ruggles, and J. Robert Warren. <em>Integrated Public Use Microdata Series, Current Population Survey: Version 12.0 [dataset].</em> Minneapolis, MN: IPUMS, 2025. The project uses CPS Annual Social and Economic Supplement (ASEC) files covering survey years 2016-2025.</p>
+<p>U.S. Census Bureau. <em>2022 Census Industry Code List with Crosswalk.</em> Internal project file: <code>2022-Census-Industry-Code-List-with-Crosswalk.xlsx</code>.</p>
+<p>U.S. Census Bureau. <em>2017 Industry Code List with Crosswalk.</em> Internal project file: <code>2017-industry-code-list-with-crosswalk.xlsx</code>.</p>
+<p>U.S. Census Bureau. <em>2018 Occupation Code List and Crosswalk.</em> Internal project file: <code>2018-occupation-code-list-and-crosswalk.xlsx</code>.</p>
+<p>For reproducibility within this repository, the main project files are <code>data_merging.ipynb</code>, <code>models/causal_analysis.ipynb</code>, <code>reports/data_science_memo.ipynb</code>, and <code>notebook_helpers.py</code>.</p>
 </div>
 </div>
 </div>
